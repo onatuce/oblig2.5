@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kinobillettbestilling</title>
+</head>
+<body>
+<h2>Bestilling av kinobilletter</h2>
+<form id="bestillingsskjema">
+    <label for="film">Velg film:</label>
+    <select id="film" required>
+        <option value="">Velg film</option>
+        <option value="film1">Film 1</option>
+        <option value="film2">Film2</option>
+        <option value="film3">Film 3</option>
+    </select>
+    <br><br>
+    <label for="antall">Antall billetter:</label>
+    <input type="number" id="antall" min="1" required>
+    <br><br>
+    <label for="fornavn">Fornavn:</label>
+    <input type="text" id="fornavn" required>
+    <br><br>
+    <label for="etternavn">Etternavn:</label>
+    <input type="text" id="etternavn" required>
+    <br><br>
+    <label for="telefon">Telefonnummer:</label>
+    <input type="tel" id="telefon"  required>
+    <br><br>
+    <label for="epost">Epost:</label>
+    <input id="epost" required>
+    <br><br>
+    <button type="submit" id="purchase">Kjøp billett</button>
+    <button type="button" id="deleteall">Slett alle billetter</button>
+</form>
+
+<h2>Kjøpte billetter</h2>
+<div class="billetter"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/scripts/index.js"></script>
+</body>
+</html>
