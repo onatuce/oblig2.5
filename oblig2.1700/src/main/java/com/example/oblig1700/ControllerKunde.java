@@ -1,9 +1,7 @@
 package com.example.oblig1700;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +10,12 @@ public class ControllerKunde {
 
     @Autowired
     TicketRepo ticketRepository;
-    @PostMapping(value = "/addTicket", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping ("/lagreTicket")
     public void addTicket(@RequestBody Ticket ticket) {
         ticketRepository.lagreTicket(ticket);
     }
 
-    @GetMapping("/findAll")
+    @GetMapping("/hentTicket")
     public List<Ticket> getAllTickets() {
         return ticketRepository.hentTicket();
     }

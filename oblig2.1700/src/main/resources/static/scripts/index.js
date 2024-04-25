@@ -1,7 +1,4 @@
-
-
 $(function(){
-
     fetchAllTickets();
 });
 
@@ -38,26 +35,28 @@ function renderTickets(tickets) {
     ticketTable += "</table>";
     $(".billetter").html(ticketTable);
 }
-function deleteAllTickets() {
+function deleteAlle() {
     $.ajax({
         url: '/deleteAll',
         type: 'GET',
-        success: function () {
+        success: function (data) {
+            console.log("Success:", data);
             fetchAllTickets();
         },
         error: function(xhr, status, error) {
             console.error("Error:", error);
-            alert("wrong!");
+            alert("wrong!!!");
         }
     });
 }
 function deleteTicket(ticketID) {
     $.ajax({
-        url: '/deleteEntry',
+        url: '/deleteAll',
         type: 'DELETE',
         contentType: "application/json",
         data: JSON.stringify(ticketID),
-        success: function () {
+        success: function (data) {
+            console.log("Success:", data);
             fetchAllTickets();
         },
         error: function(xhr, status, error) {
@@ -69,20 +68,20 @@ function deleteTicket(ticketID) {
 $("#bestillingsskjema").submit(function(event) {
     event.preventDefault();
     const formData = {
-        movieName: $("#film").val(),
-        amount: $("#antall").val(),
-        firstName: $("#fornavn").val(),
-        lastName: $("#etternavn").val(),
-        phoneNumber: $("#telefon").val(),
-        eMail: $("#epost").val(),
+        film: $("#film").val(),
+        antall: $("#antall").val(),
+        fornavn: $("#fornavn").val(),
+        etternavn: $("#etternavn").val(),
+        telefon: $("#telefon").val(),
+        epost: $("#epost").val(),
     };
     $.ajax({
         type: "POST",
         url: "/lagreTicket",
         contentType: "application/json",
         data: JSON.stringify(formData),
-        success: function (response) {
-            console.log("Success:", response);
+        success: function (data) {
+            console.log("Success:", data);
             fetchAllTickets();
         },
         error: function (xhr, status, error) {
@@ -91,8 +90,3 @@ $("#bestillingsskjema").submit(function(event) {
         }
     });
 });
-
-
-
-
-

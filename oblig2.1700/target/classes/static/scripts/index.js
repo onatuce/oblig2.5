@@ -1,21 +1,17 @@
-
-
 $(function(){
-
     fetchAllTickets();
 });
 
-let tickets = []; // Stores all tickets fetched from the server
+let tickets = [];
 
 function fetchAllTickets() {
     $.get("/hentTicket", function(data) {
         tickets = data;
-        renderTickets(tickets); // Render tickets on the screen
+        renderTickets(tickets);
     });
 }
-
 function renderTickets(tickets) {
-    let ticketTable = "<table>"; // Start table
+    let ticketTable = "<table>";
     ticketTable += "<tr>" +
         "<th>Film</th>" +
         "<th>Antall</th>" +
@@ -36,67 +32,61 @@ function renderTickets(tickets) {
         ticketTable += "</tr>";
     });
 
-    ticketTable += "</table>"; // End table
-    $(".billetter").html(ticketTable); // Update ticket view
+    ticketTable += "</table>";
+    $(".billetter").html(ticketTable);
 }
-
-function deleteAllTickets() {
+function deleteAlle() {
     $.ajax({
         url: '/deleteAll',
         type: 'GET',
-        success: function () {
-            fetchAllTickets(); // Update view after successful deletion
+        success: function (data) {
+            console.log("Success:", data);
+            fetchAllTickets();
         },
         error: function(xhr, status, error) {
             console.error("Error:", error);
-            alert("Something went wrong!");
+            alert("wrong!!!");
         }
     });
 }
-
 function deleteTicket(ticketID) {
     $.ajax({
-        url: '/deleteEntry',
+        url: '/deleteAll',
         type: 'DELETE',
         contentType: "application/json",
         data: JSON.stringify(ticketID),
-        success: function () {
-            fetchAllTickets(); // Update view after successful deletion
+        success: function (data) {
+            console.log("Success:", data);
+            fetchAllTickets();
         },
         error: function(xhr, status, error) {
             console.error("Error:", error);
-            alert("Something went wrong!");
+            alert("wrong!");
         }
     });
 }
-
 $("#bestillingsskjema").submit(function(event) {
-    event.preventDefault(); // Prevent default form submission behavior
+    event.preventDefault();
     const formData = {
-        movieName: $("#film").val(),
-        amount: $("#antall").val(),
-        firstName: $("#fornavn").val(),
-        lastName: $("#etternavn").val(),
-        phoneNumber: $("#telefon").val(),
-        eMail: $("#epost").val(),
+        film: $("#film").val(),
+        antall: $("#antall").val(),
+        fornavn: $("#fornavn").val(),
+        etternavn: $("#etternavn").val(),
+        telefon: $("#telefon").val(),
+        epost: $("#epost").val(),
     };
     $.ajax({
         type: "POST",
         url: "/lagreTicket",
         contentType: "application/json",
         data: JSON.stringify(formData),
-        success: function (response) {
-            console.log("Success:", response);
-            fetchAllTickets(); // Update view after successful addition
+        success: function (data) {
+            console.log("Success:", data);
+            fetchAllTickets();
         },
         error: function (xhr, status, error) {
             console.error("Error:", error);
-            alert("Something went wrong!");
+            alert(" wrong!");
         }
     });
 });
-
-
-
-
-
